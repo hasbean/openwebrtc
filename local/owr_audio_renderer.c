@@ -65,7 +65,7 @@ GST_DEBUG_CATEGORY_EXTERN(_owraudiorenderer_debug);
 #endif
 
 #if defined(__APPLE__) && TARGET_OS_IPHONE
-#define SINK_BUFFER_TIME G_GINT64_CONSTANT(80000)
+#define SINK_BUFFER_TIME G_GINT64_CONSTANT(200000)
 #else
 #define SINK_BUFFER_TIME G_GINT64_CONSTANT(20000)
 #endif
@@ -200,6 +200,6 @@ static GstElement *owr_audio_renderer_get_sink(OwrMediaRenderer *renderer)
     sink = gst_element_factory_make(AUDIO_SINK, "audio-renderer-sink");
     g_object_set(sink, "buffer-time", SINK_BUFFER_TIME,
         "latency-time", G_GINT64_CONSTANT(10000),
-        "enable-last-sample", FALSE, NULL);
+        "enable-last-sample", FALSE, "sync", FALSE, NULL);
     return sink;
 }
